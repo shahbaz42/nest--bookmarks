@@ -39,3 +39,15 @@ model Bookmark {
 
   @@map("bookmarks")
 }
+
+model Restaurant {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  description String?
+  location    String
+
+  @@map("restaurants")
+}
