@@ -32,7 +32,6 @@ export class JwtStrategy extends PassportStrategy(
             id: payload.sub
         }
     })
-    console.log("monkey", user)
     delete user.hash;
     return user;
   }
