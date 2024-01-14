@@ -7,42 +7,40 @@ Application in NestJS that caches DB records with multiple fields in Redis for f
 $ yarn install
 ```
 
-## Running the app
+## Api documentation
+
+https://documenter.getpostman.com/view/23141290/2s9YsNeAXE#d7282833-4769-4b76-acde-c3306bc8f3bf
+
+## env variables
 
 ```bash
-# using docker compose
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+DATABASE_URL=
+JWT_SECRET=
 ```
 
-## Test
+## Running the app locally
 
 ```bash
-# unit tests
-$ yarn run test
 
-# e2e tests
-$ yarn run test:e2e
+# 1. install dependencies 
+$ yarn
 
-# test coverage
-$ yarn run test:cov
+# 2. start redis and postgres on docker
+$ yarn db:dev:up
+
+# 3. generate prisma client
+$ yarn prisma:generate
+
+# 4. run migrations
+$ yarn prisma:dev:deploy
+
+# 5. start the app
+$ yarn start:dev
+
 ```
 
-## Support
+## Running the app using docker-compose
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+```bash
+$ docker-compose up
+```
