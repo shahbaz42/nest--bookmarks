@@ -1,6 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { RestaurantDto } from './dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
@@ -13,11 +11,7 @@ import { SchemaFieldTypes, createClient } from 'redis';
 export class RestaurantsService {
   private client: any;
 
-  constructor(
-    private prisma: PrismaService,
-    @Inject(CACHE_MANAGER)
-    private cacheManager: Cache,
-  ) {
+  constructor(private prisma: PrismaService) {
     // create a redis client
     this.client = createClient();
     this.client.on('error', (error) => {
@@ -164,10 +158,19 @@ export class RestaurantsService {
    */
   async searchRestaurants(searchBy: string, searchValue: string) {
     // search restaurants in redis
-    const results = await this.client.ft.search(
-      'idx:restaurant',
-      `@${searchBy}:${searchValue}*`,
-    );
+    let results;
+
+    if (searchBy === 'name') {
+      results = await this.client.ft.search(
+        'idx:restaurant',
+        `*${searchValue}*`,
+      );
+    } else {
+      results = await this.client.ft.search(
+        'idx:restaurant',
+        `@${searchBy}:${searchValue}*`,
+      );
+    }
 
     return results.documents.map((document) => {
       return {
