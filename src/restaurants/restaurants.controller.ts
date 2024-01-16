@@ -8,7 +8,10 @@ import {
   Body,
 } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
-import { RestaurantDto, RestaurantSearchDto } from './dto';
+import {
+  RestaurantDto,
+  RestaurantSearchDto,
+} from './dto';
 
 /**
  * Controller for handling restaurant-related requests.
@@ -52,7 +55,10 @@ export class RestaurantsController {
   searchRestaurants(
     @Query() searchDto: RestaurantSearchDto,
   ) {
-    return this.restaurantService.searchRestaurants(searchDto.searchBy, searchDto.searchValue);
+    return this.restaurantService.searchRestaurants(
+      searchDto.searchBy,
+      searchDto.searchValue,
+    );
   }
 
   /**

@@ -10,7 +10,7 @@ import { CacheModule } from '@nestjs/cache-manager';
     CacheModule.register<RedisClientOptions>({
       store: redisStore,
       socket: {
-        host: 'redis',
+        host: 'localhost',
         port: 6379,
       },
     }),
