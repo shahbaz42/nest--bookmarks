@@ -1,26 +1,13 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Param,
-  Query,
-  Body,
-} from '@nestjs/common';
+import { Controller, Get, Post, Put, Param, Query, Body } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
-import {
-  RestaurantDto,
-  RestaurantSearchDto,
-} from './dto';
+import { RestaurantDto, RestaurantSearchDto } from './dto';
 
 /**
  * Controller for handling restaurant-related requests.
  */
 @Controller('restaurants')
 export class RestaurantsController {
-  constructor(
-    private restaurantService: RestaurantsService,
-  ) {}
+  constructor(private restaurantService: RestaurantsService) {}
 
   /**
    * Get all restaurants.
@@ -38,9 +25,7 @@ export class RestaurantsController {
    */
   @Post('')
   addRestaurant(@Body() dto: RestaurantDto) {
-    return this.restaurantService.addRestaurant(
-      dto,
-    );
+    return this.restaurantService.addRestaurant(dto);
   }
 
   /**
@@ -52,9 +37,7 @@ export class RestaurantsController {
   // ...
 
   @Get('/search')
-  searchRestaurants(
-    @Query() searchDto: RestaurantSearchDto,
-  ) {
+  searchRestaurants(@Query() searchDto: RestaurantSearchDto) {
     return this.restaurantService.searchRestaurants(
       searchDto.searchBy,
       searchDto.searchValue,
@@ -68,13 +51,7 @@ export class RestaurantsController {
    * @returns {Promise<Restaurant>} A promise that resolves to the updated restaurant.
    */
   @Put('/:id')
-  updateRestaurant(
-    @Body() dto: RestaurantDto,
-    @Param('id') id: string,
-  ) {
-    return this.restaurantService.updateRestaurant(
-      dto,
-      id,
-    );
+  updateRestaurant(@Body() dto: RestaurantDto, @Param('id') id: string) {
+    return this.restaurantService.updateRestaurant(dto, id);
   }
 }

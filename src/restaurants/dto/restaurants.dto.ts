@@ -1,8 +1,4 @@
-import {
-  IsIn,
-  IsNotEmpty,
-  IsString,
-} from 'class-validator';
+import { IsIn, IsNotEmpty, IsString } from 'class-validator';
 
 /**
  * Represents a restaurant data transfer object.
